@@ -12,4 +12,5 @@
     <string name="prev_button">Previous</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
+    <string name="percentage_toast">Percentage!</string>
 </resources>
