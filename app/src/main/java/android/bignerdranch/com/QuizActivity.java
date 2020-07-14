@@ -3,6 +3,7 @@ package android.bignerdranch.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
+    private Button mCheatButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
     private TextView mQuestionTextView;
@@ -74,6 +76,7 @@ public class QuizActivity extends AppCompatActivity {
          create a listener for the widget
          */
         mTrueButton = (Button) findViewById(R.id.true_button);
+//        mTrueButton = (Button)findViewById(R.id.question_text_view);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //this is the only mandatory method of the onClickListener interface!
@@ -107,6 +110,23 @@ public class QuizActivity extends AppCompatActivity {
                 checkAnswer(false);
                 mFalseButton.setEnabled(false);
                 mTrueButton.setEnabled(false);
+            }
+        });
+
+        /*
+         cast cheatButton to a button
+         set the button to its ID
+         create a listener for the widget
+         Designed to move the user onto a the cheat activity
+         */
+
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start cheat activity
+                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -203,8 +223,7 @@ public class QuizActivity extends AppCompatActivity {
      and sets the text to the value of that question
      */
     private void updateQuestion() {
-        System.out.println(mNumQuestionsAnswered);
-        System.out.println(mNumCorrect);
+//        Log.d(TAG, "Updating Question Text", new Exception());
 
         if (mNumQuestionsAnswered != 6) {
             int question = mQuestionBank[mCurrentIndex].getTextResId();
@@ -217,8 +236,6 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(this, percentage + "% correct", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 
     /*
