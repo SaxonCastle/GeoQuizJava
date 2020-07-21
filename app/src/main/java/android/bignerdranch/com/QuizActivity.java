@@ -2,6 +2,7 @@ package android.bignerdranch.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -33,6 +34,12 @@ public class QuizActivity extends AppCompatActivity {
 
     //Create a constant that is the key that will be stored in the save instance bundle
     private static final String KEY_INDEX = "index";
+
+    //Create a request code to be sent to the Cheat activity
+    private static final int REQUEST_CODE_CHEAT = 0;
+
+    //Create a new variable to hold the value that CheatActivity is passing back
+    private boolean mIsCheater;
 
     //call new instances of the Question Class to fill the question bank
     private  Question[] mQuestionBank = new Question[] {
@@ -127,7 +134,8 @@ public class QuizActivity extends AppCompatActivity {
                 // Start cheat activity
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
                 Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
-                startActivity(intent);
+
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
 
@@ -145,6 +153,7 @@ public class QuizActivity extends AppCompatActivity {
                 mFalseButton.setEnabled(true);
                 mTrueButton.setEnabled(true);
                 mCurrentIndex = (mCurrentIndex + 1)  % mQuestionBank.length; //Something worth remembering is 6 % mQuestionBank.length = 0 and resets the counter!
+                mIsCheater = false;
 //                System.out.println(mCurrentIndex);
                 updateQuestion();
             }
@@ -176,6 +185,21 @@ public class QuizActivity extends AppCompatActivity {
 
         updateQuestion();
         }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
+    }
 
     @Override
     public void onStart() {
@@ -248,13 +272,17 @@ public class QuizActivity extends AppCompatActivity {
 
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue(); //this method comes from the question class.
         int messageResId = 0;
-        if(userPressedTrue == answerIsTrue) {
-            messageResId = R.string.correct_toast;
-            mNumQuestionsAnswered++;
-            mNumCorrect++;
+        if (mIsCheater) {
+            messageResId = R.string.judgement_toast;
         } else {
-            messageResId = R.string.incorrect_toast;
-            mNumQuestionsAnswered++;
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+                mNumQuestionsAnswered++;
+                mNumCorrect++;
+            } else {
+                messageResId = R.string.incorrect_toast;
+                mNumQuestionsAnswered++;
+            }
         }
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
