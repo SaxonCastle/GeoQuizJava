@@ -19,12 +19,9 @@ import java.text.DecimalFormat;
 
 public class QuizActivity extends AppCompatActivity {
 
-
-
-
     private Button mTrueButton;
     private Button mFalseButton;
-    private Button mCheatButton;
+    private Button mCheatButton; // button that leads to the cheat activity
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
     private TextView mQuestionTextView;
@@ -42,6 +39,8 @@ public class QuizActivity extends AppCompatActivity {
     private boolean mIsCheater;
 
     //call new instances of the Question Class to fill the question bank
+    //mQuestionBank[Index] becomes the instance of the question class.
+    //So when you call mQuestionBank[index].isAnswerTrue() it moves to the Question class, grabs the method and returns the answer set in these questions.
     private  Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
             new Question(R.string.question_ocean, true),
@@ -61,10 +60,6 @@ public class QuizActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
 
-        if (savedInstanceState != null) {
-            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-        }
-
         /*
         Cast mQuestionTextView to a TextView
          */
@@ -72,7 +67,9 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentIndex = (mCurrentIndex + 1)  % mQuestionBank.length; //Something worth remembering is 6 % mQuestionBank.length = 0 and resets the counter!
+                //Something worth remembering is 6 % mQuestionBank.length = 0 and resets the counter!
+                //If the length of the question bank increases, then it should work naturally
+                mCurrentIndex = (mCurrentIndex + 1)  % mQuestionBank.length;
                 updateQuestion();
             }
         });
@@ -126,16 +123,21 @@ public class QuizActivity extends AppCompatActivity {
          create a listener for the widget
          Designed to move the user onto a the cheat activity
          */
-
         mCheatButton = (Button) findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start cheat activity
-                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue(); //this method comes from the question class.
+
+                //An intent is an object that a component can use to communicate with the OS.
+                //An activity is a component (but there are also services, broadcast receivers, and content providers)
+                //Use the intent to tell the ActivityManager which activity to start
+                //This is an explicit intent
                 Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
 
-                startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                //startActivity is a call onto the OS, not the activity itself through the ActivityManager.
+                startActivityForResult(intent, REQUEST_CODE_CHEAT); //REQUEST_CODE_CHEAT BY DEFAULT IS 0
             }
         });
 

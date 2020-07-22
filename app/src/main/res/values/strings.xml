@@ -1,4 +1,5 @@
 <resources>
+    <!---Strings for the Main Activity-->
     <string name="app_name">GeoQuiz</string>
     <string name="question_australia">Canberra is the capital of Australia.</string>
     <string name="question_ocean">The Pacific Ocean is larger than the Atlantic Ocean.</string>
