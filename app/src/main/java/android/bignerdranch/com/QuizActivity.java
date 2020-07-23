@@ -137,6 +137,7 @@ public class QuizActivity extends AppCompatActivity {
                 Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
 
                 //startActivity is a call onto the OS, not the activity itself through the ActivityManager.
+                //a result code is always returned to the parent if the child activity was started with startActivityForResult(...)
                 startActivityForResult(intent, REQUEST_CODE_CHEAT); //REQUEST_CODE_CHEAT BY DEFAULT IS 0
             }
         });

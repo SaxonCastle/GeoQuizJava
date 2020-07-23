@@ -14,7 +14,8 @@ public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER_IS_TRUE = "android.bignerdranch.com.geoquiz.answer_is_true";
     private static final String EXTRA_ANSWER_SHOWN = "android.bignerdranch.com.geoquiz.answer_is_shown";
 
-    private boolean mAnswerIsTrue;
+
+    private boolean mAnswerIsTrue;//value returned from the extra in onCreate(Bundle) is stored here
 
 
     private TextView mAnswerTextView;
