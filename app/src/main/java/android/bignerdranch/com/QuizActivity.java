@@ -32,6 +32,9 @@ public class QuizActivity extends AppCompatActivity {
     //Create a constant that is the key that will be stored in the save instance bundle
     private static final String KEY_INDEX = "index";
 
+    //Create a constant that is they key that will be stored for isCheater
+    private static final String KEY_CHEAT = "isCheater";
+
     //Create a request code to be sent to the Cheat activity
     private static final int REQUEST_CODE_CHEAT = 0;
 
@@ -59,6 +62,13 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
+
+        if (savedInstanceState != null) {
+            //Grabs the index from the savedInstanceState for KEY_INDEX when rotation occurs
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            //Grabs the boolean value from the savedInstanceState for KEY_CHEAT when rotation occurs
+            mIsCheater = savedInstanceState.getBoolean(KEY_CHEAT, false);
+        }
 
         /*
         Cast mQuestionTextView to a TextView
@@ -181,6 +191,7 @@ public class QuizActivity extends AppCompatActivity {
                     mCurrentIndex = 5;
                 } else {
                     mCurrentIndex = mCurrentIndex - 1;
+                    mIsCheater = false;
                 }
                 updateQuestion();
             }
@@ -232,6 +243,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex); // KEY_INDEX = "index"
+        savedInstanceState.putBoolean(KEY_CHEAT, mIsCheater); //KEY_CHEAT = "isCheater"
     }
 
     @Override
@@ -256,6 +268,7 @@ public class QuizActivity extends AppCompatActivity {
         if (mNumQuestionsAnswered != 6) {
             int question = mQuestionBank[mCurrentIndex].getTextResId();
             mQuestionTextView.setText(question);
+
         } else {
 //            Context context = getApplicationContext();
             double getPercentage = ((double)mNumCorrect/ mNumQuestionsAnswered) * 100;
