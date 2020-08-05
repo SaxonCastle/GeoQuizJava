@@ -6,14 +6,16 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/question_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:layout_gravity="center_horizontal"/>
+     <TextView
+         android:id="@+id/question_text_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginBottom="60dp"
+         android:padding="24dp"
+         android:textStyle="bold"/>
 
-    <LinearLayout
+     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -24,14 +26,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/true_button"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"
+            android:layout_marginEnd="7dp"/>
 
         <Button
             android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/false_button"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"
+            android:layout_marginStart="7dp" />
 
     </LinearLayout>
 
@@ -39,23 +43,31 @@
         android:id="@+id/cheat_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center"
+
         android:text="@string/cheat_button" />
 
     <ImageButton
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/arrow_right"
-        android:contentDescription="@string/next_button"/>
+        android:layout_gravity="center|bottom"
+        android:src="@drawable/ic_right_arrow"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/next_button"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="30dp"/>
 
     <ImageButton
         android:id="@+id/prev_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:src="@drawable/arrow_left"
+        android:layout_gravity="center|bottom"
+        android:src="@drawable/ic_left_arrow"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="30dp"
         android:contentDescription="Previous"/>
 
 

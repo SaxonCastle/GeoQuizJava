@@ -2,14 +2,17 @@
 
 
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/question_text_view"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="8pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"/>
@@ -24,14 +27,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/true_button"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"
+            android:layout_marginRight="7dp"/>
 
         <Button
             android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/false_button"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"
+            android:layout_marginLeft="7dp"/>
 
     </LinearLayout>
 
@@ -52,16 +57,20 @@
             android:id="@+id/prev_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_left"
-            android:contentDescription="@string/prev_button" />
+            android:contentDescription="@string/prev_button"
+            android:src="@drawable/ic_left_arrow"
+            android:backgroundTint="@color/colorPrimary" />
 
         <ImageButton
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right"
+            android:src="@drawable/ic_right_arrow"
+            android:backgroundTint="@color/colorPrimary"
             android:contentDescription="@string/next_button"/>
+
     </LinearLayout>
+
 </LinearLayout>
 
 
